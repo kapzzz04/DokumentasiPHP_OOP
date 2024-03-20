@@ -6,16 +6,14 @@
 
 class Produk{
 
-  public $judul ,$penulis ,$penerbit ,$harga, $jmlHalaman, $waktuMain;
+  public $judul ,$penulis ,$penerbit ,$harga, $jmlHalaman;
   
      // Constructor Method
-    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jmlHalaman = 0, $waktuMain = 0 ) {
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0) {
        $this->judul = $judul;
        $this->penulis = $penulis;
        $this->penerbit = $penerbit;
        $this->harga = $harga;
-       $this->jmlHalaman = $jmlHalaman;
-       $this->waktuMain = $waktuMain;
     }
 
     public function getLabel() {
@@ -28,16 +26,33 @@ class Produk{
     }
 }
 
+
 class Komik extends Produk {
+
+    public $jmlHalaman;
+
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $jmlHalaman = 0) {
+        parent::__construct($judul, $penulis , $penerbit, $harga);
+        $this->jmlHalaman = $jmlHalaman;
+    }
+
     public function getInfoLengkap() {
-        $str = "Komik : {$this->judul} | {$this->getLabel()}, (Rp. {$this->harga}) - {$this->jmlHalaman} Halaman";
+        $str = "Komik : " . parent::getInfoLengkap() . " - {$this->jmlHalaman} Halaman";
         return $str;
     }
 }
 
 class Game extends Produk {
+    public $waktuMain;
+
+    public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0, $waktuMain = 0) {
+        parent::__construct($judul, $penulis , $penerbit, $harga);
+        $this->waktuMain = $waktuMain;
+    }
+
+
     public function getInfoLengkap() {
-        $str = "Game : {$this->judul} | {$this->getLabel()}, (Rp. {$this->harga}) - {$this->waktuMain} Jam";
+        $str = "Game : ". parent::getInfoLengkap() . " ~ {$this->waktuMain} Jam";
         return $str;
     }
 }
@@ -48,8 +63,8 @@ class CetakInfoProduk{
     }
 }
 
-$produk2 = new Komik("Twenty Five Twenty One", "Jeong Jiman", "TVN", 1500000, 100, 0);
-$produk3 = new Game("Naruto", "Masashi Kishimoto", "Shonen Jump", 30000, 0, 50);
+$produk2 = new Komik("Twenty Five Twenty One", "Jeong Jiman", "TVN", 1500000, 100);
+$produk3 = new Game("Naruto", "Masashi Kishimoto", "Shonen Jump", 30000, 50);
 
 $newProduk1 = new CetakInfoProduk();
 echo $newProduk1->cetak($produk2);

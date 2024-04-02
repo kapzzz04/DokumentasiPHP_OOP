@@ -28,8 +28,7 @@ class Jeruk extends Buah {
     }
 }
 
-$buah = new Buah();
-$apel->makan();
+
 
 
 ?>
